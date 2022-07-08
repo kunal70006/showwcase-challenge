@@ -2,12 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   background-color: ghostwhite;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   font-size: large;
+  /* overflow-y: hidden; */
 `;
 
 export const Title = styled.h1`
@@ -86,7 +87,7 @@ export const DateContainer = styled.div`
 export const ModalStyles = {
   content: {
     width: "40%",
-    height: "50%",
+    height: "500px",
     display: "flex",
     flexDirection: "column",
     top: "50%",
@@ -109,8 +110,30 @@ export const StyledTextArea = styled.textarea`
   background-color: #eee;
   overflow: auto;
   resize: both;
+  border-radius: 6px;
 
   :focus {
     outline: none;
   }
+`;
+
+export const EducationContainer = styled.div`
+  display: flex;
+  width: 80%;
+  min-height: 50vh;
+  margin-top: 4em;
+`;
+
+export const BookmarkContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 2em 4em;
+  width: 30%;
+  margin-right: 8em;
+  flex-wrap: wrap;
+`;
+
+export const EducationListContainer = styled(BookmarkContainer)`
+  width: 70%;
 `;

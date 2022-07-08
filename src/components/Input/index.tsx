@@ -2,17 +2,24 @@ import { Input } from "../../styles/Styles";
 
 interface InputFieldProps {
   placeholder: string;
-  setUsername: any;
-  name: string;
+  handlChange: any;
+  value: string;
+  id?: string;
 }
 
-const InputField = ({ placeholder, setUsername, name }: InputFieldProps) => {
+const InputField = ({
+  placeholder,
+  handlChange,
+  value,
+  id,
+}: InputFieldProps) => {
   return (
     <Input
       placeholder={placeholder}
-      value={name}
+      value={value}
+      name={id}
       maxLength={60}
-      onChange={(e) => setUsername(e.target.value)}
+      onChange={handlChange}
     />
   );
 };

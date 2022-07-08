@@ -8,8 +8,8 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   const [name, setName] = useState("");
 
-  const setUsername = (text: string) => {
-    setName(text);
+  const setUsername = (e: any) => {
+    setName(e.target.value);
   };
 
   return (
@@ -27,8 +27,8 @@ const Home: NextPage = () => {
         </SubSubTitle>
         <InputField
           placeholder="Your name"
-          setUsername={setUsername}
-          name={name}
+          handlChange={setUsername}
+          value={name}
         />
         <EnterButton slug={`/${encodeURIComponent(name)}`} />
       </Container>

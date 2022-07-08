@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-modal": "^3.13.1",
+    "dayjs": "^1.11.3",
     "next": "12.2.0",
     "react": "18.2.0",
     "react-datepicker": "^4.8.0",
