@@ -5,6 +5,7 @@ interface InputFieldProps {
   handlChange: any;
   value: string;
   id?: string;
+  style?: any;
 }
 
 const InputField = ({
@@ -12,6 +13,7 @@ const InputField = ({
   handlChange,
   value,
   id,
+  style,
 }: InputFieldProps) => {
   return (
     <Input
@@ -20,6 +22,8 @@ const InputField = ({
       name={id}
       maxLength={60}
       onChange={handlChange}
+      required
+      style={style}
     />
   );
 };

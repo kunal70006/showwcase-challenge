@@ -1,4 +1,10 @@
-import { EducationListContainer } from "../../styles/Styles";
+import {
+  EducationListContainer,
+  BookmarkIndividualContainer,
+  Heading,
+  Subtitle,
+  Title,
+} from "../../styles/Styles";
 import dayjs from "dayjs";
 import { DegreeDetails } from "../../types";
 dayjs().format();
@@ -11,28 +17,20 @@ const EducationList = ({ degree }: EducationListProps) => {
   return (
     <EducationListContainer>
       {degree ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: "1em",
-          }}
-        >
-          <p style={{ fontSize: "24px", fontWeight: "bold" }}>
+        <BookmarkIndividualContainer>
+          <Title style={{ marginBottom: "0.5em" }}>
             {degree?.degreeName} @ {degree?.collegeName}
-          </p>
-          <p>
+          </Title>
+          <Heading style={{ marginBottom: "1.5em" }}>
             {dayjs(degree.startDate).format("MM/YYYY")} -{" "}
             {degree.endDate !== "Present"
               ? dayjs(degree.endDate).format("MM/YYYY")
               : "Present"}
-          </p>
-          <p>{degree?.achievements}</p>
-        </div>
+          </Heading>
+          <Subtitle>{degree?.achievements}</Subtitle>
+        </BookmarkIndividualContainer>
       ) : (
-        <p style={{ fontSize: "24px", fontWeight: "bold" }}>
-          Enter/Click your education!
-        </p>
+        <Title>Enter/Click your education!</Title>
       )}
     </EducationListContainer>
   );

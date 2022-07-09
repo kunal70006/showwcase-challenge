@@ -12,22 +12,21 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
   font-size: 24px;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
+`;
+
+export const Heading = styled.h1`
+  font-size: 18px;
 `;
 
 export const Subtitle = styled.p`
-  margin-bottom: 4rem;
-`;
-
-export const SubSubTitle = styled.p`
-  margin-bottom: 10px;
-  font-size: large;
+  font-size: 16px;
 `;
 
 export const Input = styled.input`
   border: 1px solid gray;
-  font-size: large;
-  margin-bottom: 24px;
+  font-size: 16px;
+  /* margin-bottom: 24px; */
   background-color: white;
   border-radius: 6px;
   padding: 6px;
@@ -39,8 +38,8 @@ export const Input = styled.input`
 
 export const StyledLink = styled.a`
   border: none;
-  font-size: large;
-  margin-top: 24px;
+  font-size: 16px;
+  /* margin-top: 24px; */
   background: palevioletred;
   border-radius: 6px;
   padding: 6px 18px;
@@ -135,6 +134,13 @@ export const BookmarkContainer = styled.div`
   width: 30%;
   margin-right: 8em;
   flex-wrap: wrap;
+`;
+
+export const BookmarkIndividualContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  cursor: pointer;
 `;
 
 export const EducationListContainer = styled(BookmarkContainer)`

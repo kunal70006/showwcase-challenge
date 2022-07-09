@@ -9,7 +9,7 @@ import {
   Container,
   EducationContainer,
   StyledButton,
-  SubSubTitle,
+  Title,
 } from "../styles/Styles";
 
 import { DegreeDetails } from "../types/index";
@@ -90,8 +90,8 @@ const Education = () => {
 
   const debouncedVal = useDebounce(debounceTemp);
   const getResults = (): Promise<Universities[]> =>
-    fetch(`http://universities.hipolabs.com/search?name=${debouncedVal}`).then(
-      (resp) => resp.json()
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}${debouncedVal}`).then((resp) =>
+      resp.json()
     );
 
   const { data } = useQuery("universities", getResults, {
@@ -114,7 +114,7 @@ const Education = () => {
 
   return (
     <Container>
-      <SubSubTitle>Welcome to {name}&apos;s education page.</SubSubTitle>
+      <Title>Welcome to {name}&apos;s education page.</Title>
       <StyledButton onClick={openModal}>Add new education</StyledButton>
       <ModalContainer
         isOpen={isOpen}
@@ -124,8 +124,6 @@ const Education = () => {
         isCurrently={isCurrently}
         handleIsCurrently={handleIsCurrently}
         setDegreeDetails={setDegreeDetails}
-        educationListArray={educationListArray}
-        setEducationListArray={setEducationListArray}
         handleSortedEducationArray={handleSortedEducationArray}
         selectOptions={selectOptions}
         setDebounceTemp={setDebounceTemp}

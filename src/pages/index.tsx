@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 import Head from "next/head";
 import InputField from "../components/Input";
 import EnterButton from "../components/Link";
-import { Container, Subtitle, SubSubTitle } from "../styles/Styles";
+import { Container, Title, Heading } from "../styles/Styles";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
@@ -21,14 +21,17 @@ const Home: NextPage = () => {
       </Head>
 
       <Container>
-        <Subtitle>Hi there! Welcome to your education showcase.</Subtitle>
-        <SubSubTitle>
+        <Title style={{ marginBottom: "1.5em" }}>
+          Hi there! Welcome to your education showcase.
+        </Title>
+        <Heading style={{ marginBottom: "1em" }}>
           Type your name and click &ldquo;Enter&rdquo; below to begin!.
-        </SubSubTitle>
+        </Heading>
         <InputField
           placeholder="Your name"
           handlChange={setUsername}
           value={name}
+          style={{ marginBottom: "1em" }}
         />
         <EnterButton slug={`/${encodeURIComponent(name)}`} />
       </Container>

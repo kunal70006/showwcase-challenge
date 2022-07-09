@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import Select from "react-select";
 import InputField from "../Input";
 import {
-  SubSubTitle,
+  Subtitle,
   Title,
   StyledDiv,
   DateContainer,
@@ -12,33 +12,25 @@ import {
   StyledButton,
 } from "../../styles/Styles";
 import "react-datepicker/dist/react-datepicker.css";
-import { ChangeEvent } from "react";
-
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { DegreeDetails } from "../../types/index";
 interface ModalContainerProps {
   isOpen: boolean;
   onClose: () => void;
-  degreeDetails: {
-    degreeName: string;
-    collegeName: string;
-    startDate: Date;
-    endDate: Date | string;
-    achievements: string;
-  };
+  degreeDetails: DegreeDetails;
   handleDegreeDetailsChange: (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   isCurrently: boolean;
   handleIsCurrently: () => void;
-  setDegreeDetails: any;
-  educationListArray: any;
-  setEducationListArray: any;
-  handleSortedEducationArray: any;
+  setDegreeDetails: Dispatch<SetStateAction<DegreeDetails>>;
+  handleSortedEducationArray: (item: DegreeDetails) => void;
   selectOptions: {
     label: string;
     value: string;
     options?: any;
   }[];
-  setDebounceTemp: any;
+  setDebounceTemp: Dispatch<SetStateAction<string>>;
 }
 
 Modal.setAppElement("#__next");
@@ -51,9 +43,7 @@ const ModalContainer = ({
   isCurrently,
   handleIsCurrently,
   setDegreeDetails,
-  educationListArray,
   handleSortedEducationArray,
-  setEducationListArray,
   selectOptions,
   setDebounceTemp,
 }: ModalContainerProps) => {
@@ -65,18 +55,23 @@ const ModalContainer = ({
       style={ModalStyles}
       contentLabel="Education Modal"
     >
-      <Title>Education Modal</Title>
-      <SubSubTitle>Title</SubSubTitle>
+      <Title style={{ marginBottom: "1em" }}>Education Modal</Title>
+      <Subtitle>Title</Subtitle>
       <InputField
         value={degreeDetails.degreeName}
         id="degreeName"
         placeholder="Eg. Bachelor's in Computer Science"
         handlChange={handleDegreeDetailsChange}
+        style={{ marginBottom: "2em" }}
       />
-      <SubSubTitle>Institution</SubSubTitle>
+      <Subtitle>Institution</Subtitle>
       <Select
         styles={{
-          container: (provided: any) => ({ ...provided, width: 400 }),
+          container: (provided: any) => ({
+            ...provided,
+            width: 400,
+            marginBottom: "2em",
+          }),
         }}
         options={selectOptions}
         // @ts-ignore
@@ -91,11 +86,11 @@ const ModalContainer = ({
       />
       <StyledDiv>
         <DateContainer>
-          <SubSubTitle>Start</SubSubTitle>
+          <Subtitle>Start</Subtitle>
           <DatePicker
             dateFormat="MM/yyyy"
             selected={degreeDetails.startDate}
-            onChange={(e) =>
+            onChange={(e: Date) =>
               setDegreeDetails({ ...degreeDetails, startDate: e })
             }
             name="startDate"
@@ -103,35 +98,36 @@ const ModalContainer = ({
           />
         </DateContainer>
         <div>
-          <SubSubTitle>End</SubSubTitle>
+          <Subtitle>End</Subtitle>
           {!isCurrently ? (
             <DatePicker
               dateFormat="MM/yyyy"
               selected={new Date()}
-              onChange={(e) =>
+              onChange={(e: Date) =>
                 setDegreeDetails({ ...degreeDetails, endDate: e })
               }
               showMonthYearPicker
               name="endDate"
             />
           ) : (
-            <SubSubTitle>Present</SubSubTitle>
+            <Subtitle>Present</Subtitle>
           )}
         </div>
       </StyledDiv>
-      <StyledButton
-        style={{ marginBottom: "2rem" }}
-        onClick={handleIsCurrently}
-      >
+      <StyledButton style={{ marginBottom: "2em" }} onClick={handleIsCurrently}>
         Current?
       </StyledButton>
-      <SubSubTitle>Description</SubSubTitle>
+      <Subtitle>Description</Subtitle>
       <StyledTextArea
         value={degreeDetails.achievements}
         name="achievements"
         onChange={handleDegreeDetailsChange}
       />
       <StyledButton
+        disabled={
+          degreeDetails.degreeName.length === 0 ||
+          degreeDetails.collegeName.length === 0
+        }
         onClick={() => {
           handleSortedEducationArray(degreeDetails);
         }}

@@ -1,4 +1,9 @@
-import { BookmarkContainer } from "../../styles/Styles";
+import {
+  BookmarkContainer,
+  BookmarkIndividualContainer,
+  Heading,
+  Subtitle,
+} from "../../styles/Styles";
 import { DegreeDetails } from "../../types/index";
 
 interface BookmarkProps {
@@ -10,22 +15,14 @@ const Bookmarks = ({ educationListArray, handleSelected }: BookmarkProps) => {
   return (
     <BookmarkContainer>
       {educationListArray.length !== 0
-        ? educationListArray.map((item: any, index: number) => (
-            <div
+        ? educationListArray.map((item: DegreeDetails, index: number) => (
+            <BookmarkIndividualContainer
               key={index}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                marginBottom: "1em",
-                cursor: "pointer",
-              }}
               onClick={() => handleSelected(item)}
             >
-              <p style={{ fontSize: "24px", fontWeight: "bold" }}>
-                {item.collegeName}
-              </p>
-              <p>{item.degreeName}</p>
-            </div>
+              <Heading>{item.collegeName}</Heading>
+              <Subtitle>{item.degreeName}</Subtitle>
+            </BookmarkIndividualContainer>
           ))
         : null}
     </BookmarkContainer>
