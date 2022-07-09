@@ -1,5 +1,7 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import useDebounce from "../hooks/useDebounce";
 import Bookmarks from "../components/Bookmarks";
 import EducationList from "../components/EducationList";
 import ModalContainer from "../components/ModalContainer";
@@ -18,6 +20,10 @@ interface DegreeDetails {
   achievements: string;
 }
 
+interface Universities {
+  name: string;
+}
+
 const Education = () => {
   const router = useRouter();
   const name = router.asPath.slice(1);
@@ -33,11 +39,29 @@ const Education = () => {
   const [isCurrently, setIsCurrently] = useState(false);
   const [educationListArray, setEducationListArray] = useState([]);
   const [selectedDegree, setSelectedDegree] = useState<DegreeDetails>();
+  const [selectOptions, setSelectOptions] = useState<Universities>();
+
+  const [debounceTemp, setDebounceTemp] = useState<string>("");
 
   const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const closeModal = () => {
+    setDegreeDetails({
+      degreeName: "",
+      collegeName: "",
+      startDate: new Date(),
+      endDate: new Date(),
+      achievements: "",
+    });
+    setIsOpen(false);
+  };
   const handleDegreeDetailsChange = (e: any) => {
+    // if (e.target.name === "collegeName") {
+    //   setDebounceTemp(e.target.value);
+    // } else {
     setDegreeDetails({ ...degreeDetails, [e.target.name]: e.target.value });
+    // console.log(e);
+
+    // }
   };
   const handleIsCurrently = () => {
     if (!isCurrently) {
@@ -64,6 +88,32 @@ const Education = () => {
     closeModal();
   };
 
+  const debouncedVal = useDebounce(degreeDetails.collegeName);
+  const getResults = (): Promise<Universities[]> =>
+    fetch(`http://universities.hipolabs.com/search?name=${debouncedVal}`).then(
+      (resp) => resp.json()
+    );
+
+  const { data } = useQuery("universities", getResults, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    enabled: debouncedVal.length > 0,
+  });
+  // console.log(data, debouncedVal);
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      let temp = data.map((item) => {
+        return {
+          value: item.name,
+          label: item.name,
+        };
+      });
+      // console.log(temp);
+      setSelectOptions(temp);
+    }
+  }, [data]);
+
   return (
     <Container>
       <SubSubTitle>Welcome to {name}&apos;s education page.</SubSubTitle>
@@ -79,6 +129,7 @@ const Education = () => {
         educationListArray={educationListArray}
         setEducationListArray={setEducationListArray}
         handleSortedEducationArray={handleSortedEducationArray}
+        selectOptions={selectOptions}
       />
       <EducationContainer>
         <Bookmarks

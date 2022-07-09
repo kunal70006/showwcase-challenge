@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from "react";
 import Modal from "react-modal";
 import DatePicker from "react-datepicker";
+import Select from "react-select";
 import InputField from "../Input";
 import {
   SubSubTitle,
@@ -11,6 +11,7 @@ import {
   StyledTextArea,
   StyledButton,
 } from "../../styles/Styles";
+import "react-datepicker/dist/react-datepicker.css";
 
 interface ModalContainerProps {
   isOpen: boolean;
@@ -29,6 +30,10 @@ interface ModalContainerProps {
   educationListArray: any;
   setEducationListArray: any;
   handleSortedEducationArray: any;
+  selectOptions: {
+    label: string;
+    value: string;
+  }[];
 }
 
 Modal.setAppElement("#__next");
@@ -44,6 +49,7 @@ const ModalContainer = ({
   educationListArray,
   handleSortedEducationArray,
   setEducationListArray,
+  selectOptions,
 }: ModalContainerProps) => {
   return (
     <Modal
@@ -61,11 +67,24 @@ const ModalContainer = ({
         handlChange={handleDegreeDetailsChange}
       />
       <SubSubTitle>Institution</SubSubTitle>
-      <InputField
+      {/* {<InputField
         value={degreeDetails.collegeName}
         id="collegeName"
         handlChange={handleDegreeDetailsChange}
         placeholder="Eg. MIT, Oxford"
+      />} */}
+      <Select
+        options={selectOptions}
+        value={degreeDetails.collegeName}
+        name="collegeName"
+        onInputChange={(val) =>
+          setDegreeDetails({ ...degreeDetails, collegeName: val })
+        }
+        onChange={(val) =>
+          setDegreeDetails({ ...degreeDetails, collegeName: val.value })
+        }
+
+        // onInputChange={handleDegreeDetailsChange}
       />
       <StyledDiv>
         <DateContainer>
