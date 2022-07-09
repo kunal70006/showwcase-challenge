@@ -21,10 +21,10 @@ const Home: NextPage = () => {
       </Head>
 
       <Container>
-        <Title style={{ marginBottom: "1.5em" }}>
+        <Title style={{ marginBottom: "1.5em", color: "ghostwhite" }}>
           Hi there! Welcome to your education showcase.
         </Title>
-        <Heading style={{ marginBottom: "1em" }}>
+        <Heading style={{ marginBottom: "1em", color: "ghostwhite" }}>
           Type your name and click &ldquo;Enter&rdquo; below to begin!.
         </Heading>
         <InputField

@@ -33,6 +33,7 @@ const Education = () => {
     startDate: new Date(),
     endDate: new Date(),
     achievements: "",
+    studyField: "",
   });
   const [isCurrently, setIsCurrently] = useState<boolean>(false);
   const [educationListArray, setEducationListArray] = useState<DegreeDetails[]>(
@@ -51,6 +52,7 @@ const Education = () => {
       startDate: new Date(),
       endDate: new Date(),
       achievements: "",
+      studyField: "",
     });
     setIsOpen(false);
   };
@@ -114,7 +116,9 @@ const Education = () => {
 
   return (
     <Container>
-      <Title>Welcome to {name}&apos;s education page.</Title>
+      <Title style={{ color: "ghostwhite" }}>
+        Welcome to {name}&apos;s education page.
+      </Title>
       <StyledButton onClick={openModal}>Add new education</StyledButton>
       <ModalContainer
         isOpen={isOpen}

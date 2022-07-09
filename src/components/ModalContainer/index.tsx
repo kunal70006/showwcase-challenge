@@ -60,7 +60,15 @@ const ModalContainer = ({
       <InputField
         value={degreeDetails.degreeName}
         id="degreeName"
-        placeholder="Eg. Bachelor's in Computer Science"
+        placeholder="Eg. Bachelor's, Master's, etc"
+        handlChange={handleDegreeDetailsChange}
+        style={{ marginBottom: "2em" }}
+      />
+      <Subtitle>Field of Study</Subtitle>
+      <InputField
+        value={degreeDetails.studyField}
+        id="studyField"
+        placeholder="Mathematics, CS, etc"
         handlChange={handleDegreeDetailsChange}
         style={{ marginBottom: "2em" }}
       />
@@ -126,7 +134,8 @@ const ModalContainer = ({
       <StyledButton
         disabled={
           degreeDetails.degreeName.length === 0 ||
-          degreeDetails.collegeName.length === 0
+          degreeDetails.collegeName.length === 0 ||
+          degreeDetails.studyField.length === 0
         }
         onClick={() => {
           handleSortedEducationArray(degreeDetails);

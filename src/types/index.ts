@@ -4,4 +4,5 @@ export interface DegreeDetails {
   startDate: Date;
   endDate: Date | string;
   achievements: string;
+  studyField: string;
 }

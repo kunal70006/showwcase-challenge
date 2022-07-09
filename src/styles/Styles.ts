@@ -3,11 +3,15 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   height: 100vh;
-  background-color: ghostwhite;
+  /* background-color: ghostwhite; */
   align-items: center;
   flex-direction: column;
   justify-content: center;
   font-size: large;
+  background-image: url("/homeBg.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 export const Title = styled.h1`
@@ -134,6 +138,8 @@ export const BookmarkContainer = styled.div`
   width: 30%;
   margin-right: 8em;
   flex-wrap: wrap;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 6px;
 `;
 
 export const BookmarkIndividualContainer = styled.div`

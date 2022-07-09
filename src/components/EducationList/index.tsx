@@ -19,7 +19,7 @@ const EducationList = ({ degree }: EducationListProps) => {
       {degree ? (
         <BookmarkIndividualContainer>
           <Title style={{ marginBottom: "0.5em" }}>
-            {degree?.degreeName} @ {degree?.collegeName}
+            {degree?.degreeName} in {degree?.studyField} @ {degree?.collegeName}
           </Title>
           <Heading style={{ marginBottom: "1.5em" }}>
             {dayjs(degree.startDate).format("MM/YYYY")} -{" "}
