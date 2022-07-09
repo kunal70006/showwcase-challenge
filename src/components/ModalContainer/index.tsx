@@ -12,6 +12,7 @@ import {
   StyledButton,
 } from "../../styles/Styles";
 import "react-datepicker/dist/react-datepicker.css";
+import { ChangeEvent } from "react";
 
 interface ModalContainerProps {
   isOpen: boolean;
@@ -23,7 +24,9 @@ interface ModalContainerProps {
     endDate: Date | string;
     achievements: string;
   };
-  handleDegreeDetailsChange: (e: any) => void;
+  handleDegreeDetailsChange: (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   isCurrently: boolean;
   handleIsCurrently: () => void;
   setDegreeDetails: any;
@@ -33,7 +36,9 @@ interface ModalContainerProps {
   selectOptions: {
     label: string;
     value: string;
+    options?: any;
   }[];
+  setDebounceTemp: any;
 }
 
 Modal.setAppElement("#__next");
@@ -50,11 +55,13 @@ const ModalContainer = ({
   handleSortedEducationArray,
   setEducationListArray,
   selectOptions,
+  setDebounceTemp,
 }: ModalContainerProps) => {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onClose}
+      // @ts-ignore
       style={ModalStyles}
       contentLabel="Education Modal"
     >
@@ -67,24 +74,20 @@ const ModalContainer = ({
         handlChange={handleDegreeDetailsChange}
       />
       <SubSubTitle>Institution</SubSubTitle>
-      {/* {<InputField
-        value={degreeDetails.collegeName}
-        id="collegeName"
-        handlChange={handleDegreeDetailsChange}
-        placeholder="Eg. MIT, Oxford"
-      />} */}
       <Select
+        styles={{
+          container: (provided: any) => ({ ...provided, width: 400 }),
+        }}
         options={selectOptions}
-        value={degreeDetails.collegeName}
+        // @ts-ignore
+        value={degreeDetails.collegeName?.label}
         name="collegeName"
-        onInputChange={(val) =>
-          setDegreeDetails({ ...degreeDetails, collegeName: val })
-        }
-        onChange={(val) =>
-          setDegreeDetails({ ...degreeDetails, collegeName: val.value })
-        }
-
-        // onInputChange={handleDegreeDetailsChange}
+        onInputChange={(val) => {
+          setDebounceTemp(val);
+        }}
+        onChange={(val) => {
+          setDegreeDetails({ ...degreeDetails, collegeName: val.label });
+        }}
       />
       <StyledDiv>
         <DateContainer>

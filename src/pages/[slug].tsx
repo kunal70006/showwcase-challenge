@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import useDebounce from "../hooks/useDebounce";
 import Bookmarks from "../components/Bookmarks";
@@ -12,16 +12,14 @@ import {
   SubSubTitle,
 } from "../styles/Styles";
 
-interface DegreeDetails {
-  degreeName: string;
-  collegeName: string;
-  startDate: Date;
-  endDate: Date | string;
-  achievements: string;
-}
-
+import { DegreeDetails } from "../types/index";
 interface Universities {
   name: string;
+}
+
+interface SelectOptions {
+  label: string;
+  value: string;
 }
 
 const Education = () => {
@@ -36,10 +34,12 @@ const Education = () => {
     endDate: new Date(),
     achievements: "",
   });
-  const [isCurrently, setIsCurrently] = useState(false);
-  const [educationListArray, setEducationListArray] = useState([]);
+  const [isCurrently, setIsCurrently] = useState<boolean>(false);
+  const [educationListArray, setEducationListArray] = useState<DegreeDetails[]>(
+    []
+  );
   const [selectedDegree, setSelectedDegree] = useState<DegreeDetails>();
-  const [selectOptions, setSelectOptions] = useState<Universities>();
+  const [selectOptions, setSelectOptions] = useState<SelectOptions[]>([]);
 
   const [debounceTemp, setDebounceTemp] = useState<string>("");
 
@@ -54,14 +54,10 @@ const Education = () => {
     });
     setIsOpen(false);
   };
-  const handleDegreeDetailsChange = (e: any) => {
-    // if (e.target.name === "collegeName") {
-    //   setDebounceTemp(e.target.value);
-    // } else {
+  const handleDegreeDetailsChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setDegreeDetails({ ...degreeDetails, [e.target.name]: e.target.value });
-    // console.log(e);
-
-    // }
   };
   const handleIsCurrently = () => {
     if (!isCurrently) {
@@ -76,19 +72,23 @@ const Education = () => {
 
   const handleSortedEducationArray = (item: DegreeDetails) => {
     if (educationListArray.length < 1) {
-      setEducationListArray((educationListArray: DegreeDetails) => [
+      setEducationListArray((educationListArray: DegreeDetails[]) => [
         ...educationListArray,
         item,
       ]);
     } else {
       let temp = educationListArray.concat(item);
-      temp.sort((a, b) => Date.parse(b.startDate) - Date.parse(a.startDate));
+      temp.sort(
+        (a: DegreeDetails, b: DegreeDetails) =>
+          // @ts-ignore
+          Date.parse(b.startDate) - Date.parse(a.startDate)
+      );
       setEducationListArray(temp);
     }
     closeModal();
   };
 
-  const debouncedVal = useDebounce(degreeDetails.collegeName);
+  const debouncedVal = useDebounce(debounceTemp);
   const getResults = (): Promise<Universities[]> =>
     fetch(`http://universities.hipolabs.com/search?name=${debouncedVal}`).then(
       (resp) => resp.json()
@@ -99,7 +99,6 @@ const Education = () => {
     refetchOnWindowFocus: false,
     enabled: debouncedVal.length > 0,
   });
-  // console.log(data, debouncedVal);
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -109,7 +108,6 @@ const Education = () => {
           label: item.name,
         };
       });
-      // console.log(temp);
       setSelectOptions(temp);
     }
   }, [data]);
@@ -130,6 +128,7 @@ const Education = () => {
         setEducationListArray={setEducationListArray}
         handleSortedEducationArray={handleSortedEducationArray}
         selectOptions={selectOptions}
+        setDebounceTemp={setDebounceTemp}
       />
       <EducationContainer>
         <Bookmarks

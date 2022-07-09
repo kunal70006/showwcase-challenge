@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Head from "next/head";
 import InputField from "../components/Input";
 import EnterButton from "../components/Link";
@@ -6,9 +6,9 @@ import { Container, Subtitle, SubSubTitle } from "../styles/Styles";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
-  const [name, setName] = useState("");
+  const [name, setName] = useState<string>("");
 
-  const setUsername = (e: any) => {
+  const setUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
 

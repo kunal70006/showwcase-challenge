@@ -8,7 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   font-size: large;
-  /* overflow-y: hidden; */
 `;
 
 export const Title = styled.h1`
@@ -26,10 +25,10 @@ export const SubSubTitle = styled.p`
 `;
 
 export const Input = styled.input`
-  border: 1px solid black;
+  border: 1px solid gray;
   font-size: large;
   margin-bottom: 24px;
-  background: none;
+  background-color: white;
   border-radius: 6px;
   padding: 6px;
   width: 400px;
@@ -94,6 +93,10 @@ export const ModalStyles = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     borderRadius: "6px",
+    backgroundColor: "rgb(250,250,250)",
+  },
+  overlay: {
+    backgroundColor: "rgba(0,0,0,0.75)",
   },
 };
 
@@ -107,7 +110,7 @@ export const StyledTextArea = styled.textarea`
   height: auto;
   min-height: 10em;
   cursor: text;
-  background-color: #eee;
+  background-color: white;
   overflow: auto;
   resize: both;
   border-radius: 6px;

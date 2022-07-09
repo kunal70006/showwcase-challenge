@@ -1,9 +1,10 @@
 import { EducationListContainer } from "../../styles/Styles";
 import dayjs from "dayjs";
+import { DegreeDetails } from "../../types";
 dayjs().format();
 
 interface EducationListProps {
-  degree: any;
+  degree: DegreeDetails | undefined;
 }
 
 const EducationList = ({ degree }: EducationListProps) => {

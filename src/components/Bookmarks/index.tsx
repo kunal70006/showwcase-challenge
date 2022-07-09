@@ -1,8 +1,9 @@
 import { BookmarkContainer } from "../../styles/Styles";
+import { DegreeDetails } from "../../types/index";
 
 interface BookmarkProps {
-  educationListArray: any;
-  handleSelected: any;
+  educationListArray: DegreeDetails[];
+  handleSelected: (degree: DegreeDetails) => void;
 }
 
 const Bookmarks = ({ educationListArray, handleSelected }: BookmarkProps) => {
