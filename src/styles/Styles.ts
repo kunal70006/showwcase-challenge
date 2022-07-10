@@ -141,8 +141,9 @@ export const BookmarkContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 6px;
   overflow-y: auto;
-  max-height: 80%;
-  height: 80%;
+  max-height: 500px;
+  height: 500px;
+  /* height: 80%; */
 `;
 
 export const BookmarkIndividualContainer = styled.div`
