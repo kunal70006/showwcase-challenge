@@ -137,9 +137,12 @@ export const BookmarkContainer = styled.div`
   padding: 2em 4em;
   width: 30%;
   margin-right: 8em;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 6px;
+  overflow-y: auto;
+  max-height: 80%;
+  height: 80%;
 `;
 
 export const BookmarkIndividualContainer = styled.div`
