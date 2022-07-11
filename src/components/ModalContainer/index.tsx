@@ -110,7 +110,12 @@ const ModalContainer = ({
           {!isCurrently ? (
             <DatePicker
               dateFormat="MM/yyyy"
-              selected={new Date()}
+              // @ts-ignore
+              selected={
+                degreeDetails.endDate === "Present"
+                  ? new Date()
+                  : degreeDetails.endDate
+              }
               onChange={(e: Date) =>
                 setDegreeDetails({ ...degreeDetails, endDate: e })
               }
