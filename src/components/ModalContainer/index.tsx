@@ -10,6 +10,7 @@ import {
   ModalStyles,
   StyledTextArea,
   StyledButton,
+  RequiredText,
 } from "../../styles/Styles";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
@@ -62,23 +63,22 @@ const ModalContainer = ({
         id="degreeName"
         placeholder="Eg. Bachelor's, Master's, etc"
         handlChange={handleDegreeDetailsChange}
-        style={{ marginBottom: "2em" }}
       />
+      <RequiredText style={{ marginBottom: "2em" }}>Required</RequiredText>
       <Subtitle>Field of Study</Subtitle>
       <InputField
         value={degreeDetails.studyField}
         id="studyField"
         placeholder="Mathematics, CS, etc"
         handlChange={handleDegreeDetailsChange}
-        style={{ marginBottom: "2em" }}
       />
+      <RequiredText style={{ marginBottom: "2em" }}>Required</RequiredText>
       <Subtitle>Institution</Subtitle>
       <Select
         styles={{
           container: (provided: any) => ({
             ...provided,
             width: 400,
-            marginBottom: "2em",
           }),
         }}
         options={selectOptions}
@@ -92,6 +92,7 @@ const ModalContainer = ({
           setDegreeDetails({ ...degreeDetails, collegeName: val.label });
         }}
       />
+      <RequiredText style={{ marginBottom: "2em" }}>Required</RequiredText>
       <StyledDiv>
         <DateContainer>
           <Subtitle>Start</Subtitle>

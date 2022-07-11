@@ -27,6 +27,11 @@ export const Subtitle = styled.p`
   font-size: 16px;
 `;
 
+export const RequiredText = styled.p`
+  font-size: 8px;
+  color: red;
+`;
+
 export const Input = styled.input`
   border: 1px solid gray;
   font-size: 16px;
